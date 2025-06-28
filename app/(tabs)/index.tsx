@@ -1,15 +1,19 @@
-import {ActivityIndicator, FlatList, Image, ScrollView, Text, View} from "react-native";
-import {images} from "@/constants/images";
-import {icons} from "@/constants/icons";
 import SearchBar from "@/components/SearchBar";
-import {useRouter} from "expo-router";
+import { icons } from "@/constants/icons";
+import { images } from "@/constants/images";
+import { fetchMovies } from "@/services/api";
 import useFetch from "@/services/useFetch";
-import {fetchMovies} from "@/services/api";
-import Constants from 'expo-constants';
-import MovieCard from "@/components/MovieCard";
+import { useRouter } from "expo-router";
+import { ActivityIndicator, FlatList, Image, ScrollView, Text, View } from "react-native";
 
 export default function Index() {
     const router = useRouter();
+
+    // Debug environment variables
+    // console.log("Process env keys:", Object.keys(process.env));
+    // console.log("API_KEY from process.env:", process.env.EXPO_PUBLIC_MOVIE_API_KEY);
+    // console.log("API_KEY from Constants:", Constants.expoConfig?.extra?.movieApiKey);
+    // console.log("All Constants extra:", Constants.expoConfig?.extra);
 
     const {
         data: movies,
@@ -37,19 +41,14 @@ export default function Index() {
                         <SearchBar
                             onPress={() => router.push("/search")}
                             placeHolder="Search for a movie"
-                            value={""}
-                            onChangeText={function (text: string): void {
-                            throw new Error("Function not implemented.");
-                        }}                        />
+                        />
 
                         <>
                             <Text className="text-lg text-white font-bold mt-5 mb-3">Latest Movies</Text>
                             <FlatList
                                 data={movies}
                                 renderItem={({item}) => (
-                                    <MovieCard
-                                        {...item}
-                                    />
+                                    <Text className="text-white text-sm">{item.title}</Text>
                                 )}
                                 keyExtractor={(item) => item.id.toString()}
                                 numColumns={3}
