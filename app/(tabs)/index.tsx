@@ -5,15 +5,10 @@ import { fetchMovies } from "@/services/api";
 import useFetch from "@/services/useFetch";
 import { useRouter } from "expo-router";
 import { ActivityIndicator, FlatList, Image, ScrollView, Text, View } from "react-native";
+import MovieCard from "@/components/MovieCard";
 
 export default function Index() {
     const router = useRouter();
-
-    // Debug environment variables
-    // console.log("Process env keys:", Object.keys(process.env));
-    // console.log("API_KEY from process.env:", process.env.EXPO_PUBLIC_MOVIE_API_KEY);
-    // console.log("API_KEY from Constants:", Constants.expoConfig?.extra?.movieApiKey);
-    // console.log("All Constants extra:", Constants.expoConfig?.extra);
 
     const {
         data: movies,
@@ -40,15 +35,16 @@ export default function Index() {
                     <View className="flex-1 mt-5">
                         <SearchBar
                             onPress={() => router.push("/search")}
-                            placeHolder="Search for a movie"
-                        />
+                            placeHolder="Search for a movie" value={""} onChangeText={function (text: string): void {
+                            throw new Error("Function not implemented.");
+                        }}                        />
 
                         <>
                             <Text className="text-lg text-white font-bold mt-5 mb-3">Latest Movies</Text>
                             <FlatList
                                 data={movies}
                                 renderItem={({item}) => (
-                                    <Text className="text-white text-sm">{item.title}</Text>
+                                    <MovieCard {...item} />
                                 )}
                                 keyExtractor={(item) => item.id.toString()}
                                 numColumns={3}
