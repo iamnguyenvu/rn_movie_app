@@ -1,14 +1,9 @@
 import Constants from 'expo-constants';
-import {Client, Databases, ID, Query} from "react-native-appwrite";
+import { Client, Databases, ID, Query } from "react-native-appwrite";
 
 const DATABASE_ID = process.env.EXPO_PUBLIC_APPWRITE_DATABASE_ID || Constants.expoConfig?.extra?.appwriteDatabaseId;
 const COLLECTION_ID = process.env.EXPO_PUBLIC_APPWRITE_COLLECTION_ID || Constants.expoConfig?.extra?.appwriteCollectionId;
 const PROJECT_ID = process.env.EXPO_PUBLIC_APPWRITE_PROJECT_ID || Constants.expoConfig?.extra?.appwriteProjectId;
-
-console.log("Appwrite Config:");
-console.log("DATABASE_ID:", DATABASE_ID);
-console.log("COLLECTION_ID:", COLLECTION_ID);
-console.log("PROJECT_ID:", PROJECT_ID);
 
 if (!DATABASE_ID || !COLLECTION_ID || !PROJECT_ID) {
     throw new Error("Missing Appwrite configuration. Check .env file and app.config.js");

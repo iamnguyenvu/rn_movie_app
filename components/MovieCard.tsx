@@ -1,10 +1,10 @@
-import {Image, Text, Touchable, TouchableOpacity, View} from "react-native";
+import {Image, Text, TouchableOpacity, View} from "react-native";
 import {Link} from "expo-router";
 import {icons} from "@/constants/icons";
 
 const MovieCard = ({id, poster_path, title, vote_average, release_date}: Movie) => {
     return (
-        <Link href={`/movie/${id}` as any} asChild>
+        <Link href={`/movies/${id}` as any} asChild>
             <TouchableOpacity className="w-[30%]">
                 <Image
                     source={{

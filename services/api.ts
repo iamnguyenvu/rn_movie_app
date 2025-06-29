@@ -33,3 +33,20 @@ export const fetchMovies = async ({query}: { query: string }) => {
         throw error;
     }
 }
+
+export const fetchMovieDetails = async (movieId: string): Promise<MovieDetails> => {
+    if (!API_KEY) {
+        throw new Error("EXPO_PUBLIC_MOVIE_API_KEY not found in environment variables");
+    }
+    
+    try {
+        const response = await axios.get(`${TMDB_CONFIG.BASE_URL}/movie/${movieId}`, {
+            headers: TMDB_CONFIG.headers
+        });
+
+        return response.data;
+    } catch (err) {
+        console.error("Failed to fetch movie details:", err);
+        throw err;
+    }
+}
